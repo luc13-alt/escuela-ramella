@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escuela Dr. Pablo Ramella</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: cálida e institucional, orgullosa de su comunidad
+   IDEA: el escudo de la escuela hecho sitio: bandas azul escudo y libro coral
+   PICTURE: mosaico de fotos reales enmarcado por el escudo
+   COLOUR and TYPE: azul #12385c, coral #e08a80, blanco; Oswald (letras del escudo) + Nunito Sans
+   LAYOUT: bandas a todo ancho, contenido hasta 1240px, pestañas por taller, galería con visor */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0b1826);--ink:light-dark(#13212f,#e9eef4);--soft:light-dark(#536273,#a9b7c6);
+--navy:#12385c;--navy2:light-dark(#0d2b47,#08131f);--coral:#e08a80;--coral-d:light-dark(#b9584d,#f0a39a);
+--card:light-dark(#f3f6f9,#122435);--line:light-dark(#dde4eb,#22384d);--sand:light-dark(#fbf1ee,#1a2a3a)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:var(--coral-d)}
+h1,h2,h3{font-family:Oswald,"Arial Narrow",sans-serif;font-weight:600;line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4vw,44px)}h3{font-size:22px;font-weight:500}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+.lead{font-size:18px;color:var(--soft);max-width:62ch;margin:12px 0 0}
+/* barra */
+header{position:sticky;top:0;z-index:20;background:var(--navy2);color:#fff;border-bottom:3px solid var(--coral)}
+.bar{display:flex;align-items:center;gap:16px;padding:8px max(5vw,16px);max-width:1340px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-family:Oswald;font-size:19px;white-space:nowrap}
+.brand img{width:30px}
+nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+nav a{flex:none;color:#dfe8f1;text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:600;font-size:15px;white-space:nowrap}
+nav a:hover,nav a:focus-visible{background:#ffffff1f;color:#fff}
+/* portada */
+.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;bottom:-160px;width:520px;height:520px;border:2px solid #e08a8055;border-radius:50% 50% 46% 46%}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:center;position:relative;z-index:1}
+.kicker{display:inline-flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.kicker span{background:#ffffff17;border:1px solid #ffffff30;border-radius:99px;padding:5px 12px;font-size:14px;font-weight:600}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:700}
+.hero h1 small{display:block;font-size:.42em;font-weight:500;color:var(--coral);margin-bottom:6px}
+.hero p{font-size:19px;color:#d5e0ea;max-width:46ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border-radius:10px;font-weight:800;text-decoration:none;border:2px solid var(--coral);color:#fff}
+.btn.fill{background:var(--coral);color:#13212f}
+.mosaic{display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:clamp(320px,38vw,470px);position:relative}
+.mosaic img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.mosaic img:first-child{grid-row:span 2}
+.mosaic .crest{height:auto;object-fit:contain;border-radius:0;position:absolute;left:50%;top:50%;translate:-62% -50%;width:clamp(84px,10vw,124px);filter:drop-shadow(0 8px 18px #0007)}
+/* cifras */
+.stats{background:var(--navy2);color:#fff;padding:26px max(5vw,16px)}
+.stats .wrap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+.stat b{display:block;font-family:Oswald;font-size:clamp(34px,4vw,46px);color:var(--coral);line-height:1}
+.stat span{font-size:14.5px;color:#c9d6e2}
+.stats .note{grid-column:1/-1;font-size:13px;color:#93a6b9;margin:0}
+/* frase */
+.quote{background:var(--sand)}
+.quote blockquote{margin:0 auto;max-width:900px;font-family:Oswald;font-weight:500;font-size:clamp(24px,3.2vw,34px);line-height:1.25;text-align:center;color:var(--ink)}
+.quote cite{display:block;font:600 15px "Nunito Sans";color:var(--soft);margin-top:14px;font-style:normal}
+/* equipo */
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:30px}
+.person{background:var(--card);border-radius:14px;padding:20px;border:1px solid var(--line)}
+.person .ini{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-family:Oswald;font-size:20px;margin-bottom:12px}
+.person.t .ini{background:var(--coral);color:#13212f}
+.person b{display:block;font-size:17px}.person span{color:var(--soft);font-size:15px}
+/* ABP */
+.abp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:30px}
+.proj{border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.proj .top{padding:22px;color:#fff;background:var(--navy)}
+.proj:nth-child(2) .top{background:#2d5f86}.proj:nth-child(3) .top{background:#a8524a}
+.proj .top p{margin:6px 0 0;color:#e6eef5}
+.proj .body{padding:20px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj h4{margin:0;font-size:14px;color:var(--coral-d);font-weight:800}
+.proj ul{margin:0;padding-left:18px}.proj li{margin:3px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}.tags span{font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+/* talleres */
+.tabs{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.tab{min-height:48px;padding:0 18px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 16px "Nunito Sans";cursor:pointer}
+.tab[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab:focus-visible,.btn:focus-visible,.chip:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);margin-top:24px;align-items:start}
+.panel[hidden]{display:none}
+.panel .who{font-weight:800;color:var(--coral-d)}
+.acts{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.acts li{background:var(--card);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:12px 14px}
+.acts b{display:block}
+.pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pics button{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
+.pics button:first-child{grid-column:span 2;aspect-ratio:16/9}
+.pics img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.pics button:hover img{transform:scale(1.04)}
+/* recorrido */
+.road{background:var(--navy);color:#fff}
+.road .lead{color:#c9d6e2}
+.steps{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.steps li{border-top:3px solid var(--coral);padding-top:14px}
+.steps time{font-family:Oswald;font-size:20px;color:var(--coral);white-space:nowrap}
+.steps p{margin:6px 0 0;color:#dbe5ee;font-size:15.5px}
+/* galería */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chip{min-height:44px;padding:0 16px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 15px "Nunito Sans";cursor:pointer}
+.chip[aria-pressed=true]{background:var(--coral);border-color:var(--coral);color:#13212f}
+.grid{columns:3 260px;column-gap:14px;margin-top:22px}
+.grid button{display:block;width:100%;padding:0;margin:0 0 14px;border:0;background:var(--card);border-radius:12px;overflow:hidden;cursor:zoom-in;break-inside:avoid;text-align:left;color:var(--ink)}
+.grid span{display:block;padding:9px 12px;font-size:14px;color:var(--soft)}
+/* recursos */
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:26px}
+.res a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;min-height:44px}
+.res a:hover{border-color:var(--coral)}
+.res b{display:block;font-size:17px}.res span{color:var(--soft);font-size:14.5px}
+footer{background:var(--navy2);color:#c9d6e2;padding:36px max(5vw,16px);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+footer img{width:54px}
+/* videos */
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:28px}
+.vid{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:18px;align-items:center}
+.vid video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:12px;background:#000}
+.vid p{margin:8px 0 0;color:var(--soft)}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:22px}
+.dl a{display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-height:44px}
+.dl a:hover{border-color:var(--coral)}
+.dl i{flex:none;width:44px;height:44px;border-radius:50%;background:var(--coral);display:grid;place-items:center}
+.dl i::before{content:"";border-left:13px solid #13212f;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:4px}
+.dl b{display:block}.dl span{font-size:14px;color:var(--soft)}
+.star{border:2px solid var(--coral)!important}
+/* 2027 */
+.p27{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:28px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.plan .meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.plan .meta span{font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+.months{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.months li{background:var(--bg);border-radius:10px;padding:8px 10px;font-size:14.5px;line-height:1.35}
+.months b{display:block;color:var(--coral-d);font-size:13px}
+@media(max-width:900px){.vids,.p27{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.vid{grid-template-columns:minmax(0,1fr)}.vid video{max-width:260px;margin:0 auto}.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* conecta */
+.conecta{background:linear-gradient(135deg,#3a1460,#12385c);color:#fff}
+.conecta .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(24px,4vw,56px);align-items:center}
+.conecta .lead{color:#dcd3ec}
+.pasos{list-style:none;padding:0;margin:22px 0;display:grid;gap:10px}
+.pasos li{display:flex;gap:12px;align-items:center;font-size:18px;font-weight:700}
+.pasos b{flex:none;width:36px;height:36px;border-radius:50%;background:var(--coral);color:#13212f;display:grid;place-items:center;font-family:Oswald}
+.qrbox{background:#fff;color:#13212f;border-radius:20px;padding:22px;text-align:center;box-shadow:0 18px 40px #0005}
+.qrbox img{width:min(260px,100%);margin:0 auto 12px}
+.qrbox .btn{border-color:#5b1f93;background:#5b1f93;color:#fff;justify-content:center;width:100%}
+.futuro{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:8px}
+.futuro div{background:#ffffff14;border:1px solid #ffffff2e;border-radius:14px;padding:16px}
+.futuro h4{margin:0 0 6px;font-size:15px;color:var(--coral)}
+.futuro p{margin:0;font-size:15px;color:#e4dcf2}
+.urg{grid-column:1/-1;margin:0;font-size:14.5px;color:#d6cce6;border-top:1px solid #ffffff2e;padding-top:14px}
+@media(max-width:800px){.conecta .wrap,.futuro{grid-template-columns:minmax(0,1fr)}}
+/* visor */
+.lb{position:fixed;inset:0;z-index:50;background:#060d16f2;display:none;flex-direction:column;align-items:center;justify-content:center;padding:56px 16px 20px;gap:12px}
+.lb.on{display:flex}
+.lb img{max-height:78vh;max-width:min(1100px,100%);border-radius:10px;object-fit:contain}
+.lb p{color:#e6eef5;margin:0;text-align:center}
+.lb button{position:absolute;min-width:48px;min-height:48px;border-radius:50%;border:0;background:#ffffff22;color:#fff;font-size:24px;cursor:pointer}
+.lb .x{top:12px;right:12px}.lb .p{left:12px;top:50%}.lb .n{right:12px;top:50%}
+@media(max-width:900px){.abp{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.stats .wrap{grid-template-columns:repeat(3,minmax(0,1fr))}.panel{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.brand span{display:none}.mosaic{height:300px}}
+@media(max-width:480px){.steps{grid-template-columns:minmax(0,1fr)}.stats .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pics img{transition:none}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <a class="brand" href="#inicio"><img src="img/escudo.webp" alt="Escudo de la escuela"><span>Esc. Dr. Pablo Ramella</span></a>
+  <nav aria-label="Secciones">
+    <a href="#equipo">Equipo</a><a href="#abp">Proyectos ABP</a><a href="#conecta">Conectá</a><a href="#talleres">Talleres</a><a href="#recorrido">Recorrido</a><a href="#galeria">Galería</a><a href="#videos">Videos</a><a href="#proyectos-2027">2027</a><a href="#recursos">Recursos</a>
+  </nav>
+</div></header>
+
+<section class="hero band" id="inicio"><div class="wrap">
+  <div>
+    <div class="kicker"><span>Red Secundarias Innovadoras</span><span>Ciclo 2026</span><span>Rawson, San Juan</span></div>
+    <h1><small>Escuela Secundaria</small>Dr. Pablo Ramella</h1>
+    <p>Una escuela que escucha, acompaña y se anima a innovar: bienestar, educación financiera y alfabetización digital trabajando juntos en proyectos que nacen de nuestras propias necesidades.</p>
+    <div class="cta"><a class="btn fill" href="#talleres">Conocé los talleres</a><a class="btn" href="#galeria">Ver fotos</a></div>
+  </div>
+  <div class="mosaic">
+    <img src="img/estudiantina-carteles.webp" alt="Estudiantes con el cartel «Que nunca falten motivos para sonreír»">
+    <img src="img/digital-flexflix-aula.webp" alt="Clase con la plataforma FlexFlix">
+    <img src="img/hase-jornada-estudiantes.webp" alt="Jornada de sensibilización con estudiantes">
+    <img class="crest" src="img/escudo.webp" alt="">
+  </div>
+</div></section>
+
+<section class="stats" aria-label="Cifras del eje digital"><div class="wrap">
+  <div class="stat"><b>12</b><span>divisiones, de 1.º a 6.º año</span></div>
+  <div class="stat"><b>170</b><span>estudiantes con actividades del eje digital</span></div>
+  <div class="stat"><b>60</b><span>docentes acompañados</span></div>
+  <div class="stat"><b>30</b><span>encuentros e intervenciones</span></div>
+  <div class="stat"><b>9</b><span>proyectos interdisciplinarios en FlexFlix</span></div>
+  <p class="note">Eje de Alfabetización Digital e IA, del 19/08 al 19/11/2026 · Turno tarde · CUE 700106600</p>
+</div></section>
+
+<section class="quote band"><blockquote>“Innovar no es hacer algo diferente porque sí. Es mirar una necesidad real de nuestra escuela y animarnos a construir una respuesta diferente.”<cite>Taller docente «Mirar la escuela con otros ojos»</cite></blockquote></section>
+
+<section class="band" id="equipo"><div class="wrap">
+  <h2>Quiénes acompañamos el proyecto</h2>
+  <p class="lead">El Programa Secundarias Innovadoras llega a la escuela a través de un equipo de conducción, una referente institucional y tres talleristas que articulan formación, escucha, participación y herramientas digitales.</p>
+  <div class="team">
+    <div class="person"><div class="ini">CP</div><b>Lic. Cristian Páez</b><span>Director institucional</span></div>
+    <div class="person"><div class="ini">MM</div><b>Lic. Marcela Magrini</b><span>Supervisora</span></div>
+    <div class="person"><div class="ini">VA</div><b>Lic. Valeria Albornoz</b><span>Referente institucional</span></div>
+    <div class="person t"><div class="ini">CA</div><b>Lic. Cristian Allende</b><span>Tallerista de Habilidades Socioemocionales (HASE)</span></div>
+    <div class="person t"><div class="ini">OD</div><b>Prof. CP Osvaldo Díaz</b><span>Tallerista de Educación Financiera</span></div>
+    <div class="person t"><div class="ini">LM</div><b>Lic. Lucía Miranda</b><span>Tallerista de Alfabetización Digital e IA</span></div>
+  </div>
+</div></section>
+
+<section class="band" id="abp" style="background:var(--sand)"><div class="wrap">
+  <h2>Tres proyectos ABP institucionales</h2>
+  <p class="lead">Cada proyecto responde a necesidades que detectamos junto a docentes y estudiantes: falta de escucha, desmotivación, problemas de convivencia, incertidumbre y la necesidad de prepararnos ante la realidad sísmica de San Juan.</p>
+  <div class="abp">
+    <article class="proj"><div class="top"><h3>San Juan Resiliente</h3><p>Prevención sísmica y cuidado colectivo</p></div>
+      <div class="body">
+        <div><h4>Qué hicimos</h4><ul><li>Ping-pong de preguntas sobre zonas seguras y prevención</li><li>«Rosco de seguridad sísmica» en Educaplay, con participación de todos los cursos</li><li>Taller «Armamos un presupuesto básico para una mochila sísmica»</li><li>Articulación con la visita de Bomberos</li></ul></div>
+        <div><h4>Espacios que se suman</h4><div class="tags"><span>Matemática</span><span>Inglés</span><span>Geografía</span><span>Historia</span><span>Salud y Ambiente</span></div></div>
+      </div></article>
+    <article class="proj"><div class="top"><h3>Radar Escolar</h3><p>Zona de escucha y propuestas de mejora</p></div>
+      <div class="body">
+        <div><h4>Qué hicimos</h4><ul><li>«GPS emocional», recurso interactivo en Genially</li><li>Formularios de expresión anónima, cuidando la privacidad</li><li>Mural colaborativo en Padlet: «La escuela que queremos»</li><li>Miércoles de Escucha y Buzón de Emociones</li><li>App «Radar de emociones» para registrar cómo llegamos a la escuela</li><li>QR «Conectá con lo que sentís» para pedir acompañamiento</li></ul></div>
+        <div><h4>Espacios que se suman</h4><div class="tags"><span>Proyecto Multidisciplinar 2.º 1.ª</span></div></div>
+      </div></article>
+    <article class="proj"><div class="top"><h3>Identidad 360°</h3><p>Autoconocimiento y proyecto de vida</p></div>
+      <div class="body">
+        <div><h4>Qué hicimos</h4><ul><li>«Mi identidad en 360°»: pasaporte digital con intereses, valores, habilidades y metas</li><li>Canción «Quién soy hoy» creada con Suno</li><li>Recursos audiovisuales de identidad y pertenencia escolar</li></ul></div>
+        <div><h4>Espacios que se suman</h4><div class="tags"><span>Inglés</span><span>Cs. Políticas</span><span>Matemática</span><span>Geografía</span></div></div>
+      </div></article>
+  </div>
+</div></section>
+
+<section class="conecta band" id="conecta"><div class="wrap">
+  <div>
+    <p style="margin:0 0 8px;font-weight:800;color:var(--coral)">ABP Radar Escolar · Nueva herramienta</p>
+    <h2>Conectá con lo que sentís</h2>
+    <p class="lead">A veces, pedir ayuda comienza con un clic. No hace falta que tengas todas las respuestas: tu bienestar nos importa.</p>
+    <ol class="pasos"><li><b>1</b>Escaneá el código</li><li><b>2</b>Expresá lo que sentís</li><li><b>3</b>Conectá con alguien que pueda acompañarte</li></ol>
+    <p style="margin:0;color:#dcd3ec">Equipo de Escuelas Innovadoras · Escuela Dr. Pablo Ramella</p>
+  </div>
+  <div class="qrbox">
+    <img src="img/qr-conecta.png" alt="Código QR del formulario «Conectá con lo que sentís» de Código Ramella">
+    <a class="btn" href="https://tally.so/r/QoV2qg" target="_blank" rel="noopener">Abrir el formulario</a>
+    <p style="margin:10px 0 0;font-size:14px;color:#536273">Desde el celu, escaneá el QR o tocá el botón.</p>
+  </div>
+  <div class="futuro">
+    <div><h4>Qué buscamos</h4><p>Que cada estudiante tenga una forma simple y discreta de decir cómo está y de pedir que alguien lo escuche.</p></div>
+    <div><h4>Hacia dónde vamos</h4><p>Con las respuestas, el equipo podrá detectar a tiempo a quienes necesitan acompañamiento y acercarse a cada uno de manera personal.</p></div>
+    <div><h4>Con cuidado</h4><p>Lo que se comparte es confidencial: solo lo lee el equipo que acompaña, para cuidar a quien escribe.</p></div>
+  </div>
+  <p class="urg">Si necesitás hablar ya mismo, buscá a un adulto de confianza de la escuela o llamá gratis a la <b>Línea 102</b>, de escucha para chicas, chicos y adolescentes. Ante una emergencia, llamá al <b>911</b>.</p>
+</div></section>
+
+<section class="band" id="talleres"><div class="wrap">
+  <h2>Nuestros talleres</h2>
+  <p class="lead">Tres miradas que se complementan dentro del aula y en jornadas con toda la comunidad.</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t-hase" aria-controls="p-hase" aria-selected="true">Socioemocional</button>
+    <button class="tab" role="tab" id="t-fin" aria-controls="p-fin" aria-selected="false">Educación Financiera</button>
+    <button class="tab" role="tab" id="t-dig" aria-controls="p-dig" aria-selected="false">Alfabetización Digital e IA</button>
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-hase" aria-labelledby="t-hase">
+    <div>
+      <p class="who">Lic. Cristian Allende · Habilidades Socioemocionales</p>
+      <p>Seguimos construyendo una escuela donde escuchar, participar y convivir también es aprender. El taller trabaja tres ejes: conciencia social, habilidades de relación y bienestar personal.</p>
+      <ul class="acts">
+        <li><b>Jornada de sensibilización con estudiantes · 28/08</b>Dinámicas grupales en el SUM para poner en palabras lo que nos pasa.</li>
+        <li><b>Jornada con docentes · 03/09</b>«Mirar la escuela con otros ojos»: qué nos preocupa, qué necesitamos fortalecer y qué queremos construir.</li>
+        <li><b>Miércoles de Escucha</b>Todos los miércoles, 5 minutos antes y después del primer recreo, en el patio o la biblioteca. Para quien prefiera no hablar, el Buzón de Escucha.</li>
+        <li><b>Mapa HASE</b>Conciencia social, habilidades de relación y bienestar personal, compartidos con toda la comunidad.</li>
+      </ul>
+    </div>
+    <div class="pics" data-set="hase"></div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-fin" aria-labelledby="t-fin" hidden>
+    <div>
+      <p class="who">Prof. CP Osvaldo Díaz · Educación Financiera</p>
+      <p>Aprender a organizar recursos escasos con decisiones reales. Con 3.er año se trabajó la pregunta: <i>¿cómo preparar una mochila sísmica completa, útil y posible, sin gastar de más?</i></p>
+      <ul class="acts">
+        <li><b>1 · Priorización</b>En grupos, ordenar por importancia agua, alimentos no perecederos, linterna, pilas, silbato y botiquín.</li>
+        <li><b>2 · Análisis de mercado</b>Incorporar precios reales y comparar el costo de cada producto.</li>
+        <li><b>3 · Presupuesto limitado</b>Armar la mochila ajustándose a un monto y justificar cada compra.</li>
+        <li><b>4 · Simulación y plan</b>Cada grupo expone su presupuesto y su plan de acción.</li>
+      </ul>
+    </div>
+    <div class="pics" data-set="fin"></div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-dig" aria-labelledby="t-dig" hidden>
+    <div>
+      <p class="who">Lic. Lucía Miranda · Alfabetización Digital e IA</p>
+      <p>Usar la tecnología y la inteligencia artificial con criterio, para aprender, crear y comunicar lo que hacemos en la escuela.</p>
+      <ul class="acts">
+        <li><b>FlexFlix.ai y Centro Tecnológico</b>Carga de estudiantes y docentes, tutoriales y clases en el Centro Tecnológico: 1.º 1.ª el 29/09 y 1.º 2.ª el 01/10.</li>
+        <li><b>Recursos interactivos</b>Rosco sísmico en Educaplay, GPS emocional en Genially y mural en Padlet.</li>
+        <li><b>IA para docentes</b>Guía de herramientas de IA con código QR en la sala de profesores.</li>
+        <li><b>Creación multimedia</b>Canciones con Suno y un noticiero con avatares que integra los tres ABP.</li>
+      </ul>
+    </div>
+    <div class="pics" data-set="dig"></div>
+  </div>
+</div></section>
+
+<section class="road band" id="recorrido"><div class="wrap">
+  <h2>Nuestro recorrido 2026</h2>
+  <p class="lead">De agosto a noviembre, paso a paso.</p>
+  <ol class="steps">
+    <li><time>Agosto</time><p>Formación de talleristas, carga de alumnos y docentes en FlexFlix y jornada de sensibilización con estudiantes (28/08).</p></li>
+    <li><time>Septiembre</time><p>Jornada con docentes (03/09), clases con FlexFlix, Miércoles de Escucha, taller de la mochila sísmica, la Estudiantina y la visita de 1.º 1.ª al Centro Tecnológico (29/09).</p></li>
+    <li><time>Octubre</time><p>Visita de 1.º 2.ª al Centro Tecnológico (01/10), rosco sísmico, GPS emocional y clases de educación financiera.</p></li>
+    <li><time>Noviembre</time><p>Muestra de Escuelas Innovadoras el 12/11 y jornada con Pablo Aristizábal.</p></li>
+  </ol>
+</div></section>
+
+<section class="band" id="galeria"><div class="wrap">
+  <h2>Galería</h2>
+  <p class="lead">Momentos del año. Tocá una foto para verla grande.</p>
+  <div class="chips" role="group" aria-label="Filtrar fotos"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section class="band" id="videos" style="background:var(--sand)"><div class="wrap">
+  <h2>Videos</h2>
+  <p class="lead">Producciones de los talleres y registros de clases. Los dos primeros se ven acá mismo; el resto se abre en Google Drive.</p>
+  <div class="vids">
+    <article class="vid"><video controls playsinline preload="none" poster="media/radio-poster.webp"><source src="media/radio-ramella.mp4" type="video/mp4"></video>
+      <div><h3>La Radio de la Ramella</h3><p>Video promocional creado con inteligencia artificial para la Muestra de Escuelas Innovadoras.</p></div></article>
+    <article class="vid"><video controls playsinline preload="none" poster="media/radar-poster.webp"><source src="media/radar-emociones.mp4" type="video/mp4"></video>
+      <div><h3>App «Radar de emociones»</h3><p>Cómo funciona la app del ABP Radar Escolar: cada estudiante cuenta cómo llega a la escuela y qué necesita. Se puede responder sin poner el nombre.</p></div></article>
+  </div>
+  <div class="dl">
+    <a class="star" href="https://drive.google.com/file/d/1X9fofCX3d7azxlz9lh0FiN3FJykb2owo/view" target="_blank" rel="noopener"><i></i><div><b>Noticiero con avatares</b><span>Integra los tres ABP · Jornada didáctica, 12/11</span></div></a>
+    <a href="https://drive.google.com/file/d/1k1pq5Z-onKyk1pKUiyOtCRBRBqnIgUII/view" target="_blank" rel="noopener"><i></i><div><b>Ping-pong sísmico · parte 1</b><span>ABP San Juan Resiliente</span></div></a>
+    <a href="https://drive.google.com/file/d/1RBxC0MAQ4glsI6osKR7hiad66VsFK2_O/view" target="_blank" rel="noopener"><i></i><div><b>Ping-pong sísmico · parte 2</b><span>ABP San Juan Resiliente</span></div></a>
+    <a href="https://drive.google.com/file/d/1XJFyGnISqvi3rzWkWp2s2GDNNR58YVUg/view" target="_blank" rel="noopener"><i></i><div><b>Ping-pong sísmico · parte 3</b><span>ABP San Juan Resiliente</span></div></a>
+    <a href="https://drive.google.com/file/d/1nanJ-Qor_HEiws--kfaBZFuX-oIGufwX/view" target="_blank" rel="noopener"><i></i><div><b>Ping-pong sísmico · parte 4</b><span>ABP San Juan Resiliente</span></div></a>
+    <a href="https://drive.google.com/file/d/1OL1ZR_QfM-pmZ5jFSYyIvGZlMiaoxru2/view" target="_blank" rel="noopener"><i></i><div><b>Ping-pong sísmico · parte 5</b><span>ABP San Juan Resiliente</span></div></a>
+    <a href="https://drive.google.com/file/d/1c7QD8rkr6oDUsA9-U6u79ukvlnR2dvK5/view" target="_blank" rel="noopener"><i></i><div><b>Tutorial FlexFlix · 1</b><span>Cómo ingresar a la plataforma</span></div></a>
+    <a href="https://drive.google.com/file/d/1y0nYm_ItwSf1qDL4Rk304GRusu_tUaZf/view" target="_blank" rel="noopener"><i></i><div><b>Tutorial FlexFlix · 2</b><span>Cómo ingresar a la plataforma</span></div></a>
+    <a href="https://drive.google.com/file/d/1bq5q3pedtQpCU8mpSBH2cNcgvki9XUoc/view" target="_blank" rel="noopener"><i></i><div><b>Clase con FlexFlix</b><span>Trabajo en el aula, 08/09</span></div></a>
+    <a href="https://drive.google.com/file/d/1nUiT1-fiwNeD16PX6QffCph0MR60wUCm/view" target="_blank" rel="noopener"><i></i><div><b>En el aula · parte 2</b><span>08/09</span></div></a>
+    <a href="https://drive.google.com/file/d/1dkBiAFn7ovQe_Wz9g74ycc51I8vzF83h/view" target="_blank" rel="noopener"><i></i><div><b>En el aula · parte 3</b><span>08/09</span></div></a>
+    <a href="https://drive.google.com/file/d/1dew1a_bWcXcn0ucwP7seOa2xX5R5Y9QJ/view" target="_blank" rel="noopener"><i></i><div><b>Jornada con Pablo Aristizábal</b><span>Noviembre</span></div></a>
+  </div>
+</div></section>
+
+<section class="band" id="proyectos-2027"><div class="wrap">
+  <h2>Lo que viene: Digital Academy 2027</h2>
+  <p class="lead">Dos talleres propuestos para el ciclo 2027, de marzo a noviembre: un encuentro por mes, inscripción voluntaria por formulario y QR, hasta 22 estudiantes por encuentro y un Pasaporte Digital con insignias. Son borradores, sujetos a acuerdos institucionales.</p>
+  <div class="p27">
+    <article class="plan"><h3>Digital Skills 2027</h3><p>Competencias informáticas y productividad digital para estudiar, trabajar y crear con autonomía.</p>
+      <div class="meta"><span>Presencial y práctico</span><span>Basado en desafíos</span></div>
+      <ul class="months">
+        <li><b>Marzo</b>Informática básica y archivos</li><li><b>Abril</b>Word</li><li><b>Mayo</b>PowerPoint</li>
+        <li><b>Junio</b>Excel</li><li><b>Julio</b>Canva y diseño</li><li><b>Agosto</b>Google Drive</li>
+        <li><b>Septiembre</b>IA generativa</li><li><b>Octubre</b>Edición de imagen y video</li><li><b>Noviembre</b>Portfolio digital</li>
+      </ul></article>
+    <article class="plan"><h3>Future Lab 2027</h3><p>Laboratorio de innovación, inteligencia artificial y tecnologías emergentes para crear prototipos propios.</p>
+      <div class="meta"><span>ABP</span><span>Gamificación</span><span>Desafíos tecnológicos</span></div>
+      <ul class="months">
+        <li><b>Marzo</b>IA y prompting</li><li><b>Abril</b>Avatares digitales</li><li><b>Mayo</b>IA en imagen y video</li>
+        <li><b>Junio</b>Programación creativa</li><li><b>Julio</b>Diseño web con IA</li><li><b>Agosto</b>Robótica educativa</li>
+        <li><b>Septiembre</b>Diseño e impresión 3D</li><li><b>Octubre</b>Realidad aumentada</li><li><b>Noviembre</b>Expo Future Lab</li>
+      </ul></article>
+  </div>
+</div></section>
+
+<section class="band" id="recursos" style="background:var(--sand)"><div class="wrap">
+  <h2>Recursos para explorar</h2>
+  <p class="lead">Producciones digitales creadas en los talleres. Se abren en una pestaña nueva.</p>
+  <div class="res">
+    <a href="https://es.educaplay.com/recursos-educativos/30962623-rosco_seguridad_sismica_en_la_escuela.html" target="_blank" rel="noopener"><b>Rosco sísmico</b><span>Educaplay · San Juan Resiliente</span></a>
+    <a href="https://view.genially.com/6ac81bc31c336877c6ae4769" target="_blank" rel="noopener"><b>GPS emocional</b><span>Genially · Radar Escolar</span></a>
+    <a href="https://suno.com/s/xT3EWX6uI5OU0Dte" target="_blank" rel="noopener"><b>«Quién soy hoy»</b><span>Suno · Identidad 360°</span></a>
+    <a href="https://suno.com/s/O9JDK08Zn4CEtKQa" target="_blank" rel="noopener"><b>Canciones de las aulas</b><span>Suno · producciones con FlexFlix</span></a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div style="display:flex;gap:14px;align-items:center"><img src="img/escudo.webp" alt=""><div><b style="color:#fff">Escuela Secundaria Dr. Pablo Ramella</b><br>Rawson, San Juan · Turno tarde</div></div>
+  <div>Red Secundarias Innovadoras · Ciclo 2026</div>
+</div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="x" aria-label="Cerrar">×</button><button class="p" aria-label="Anterior">‹</button><button class="n" aria-label="Siguiente">›</button>
+  <img alt=""><p></p>
+</div>
+
+<script>{
+const F=[
+['hase','hase-jornada-estudiantes.webp','Jornada de sensibilización con estudiantes, 28/08'],
+['hase','jornada-docentes-2.webp','Jornada con docentes, 03/09'],
+['hase','espacio-escucha.webp','Espacio de Escucha en el patio'],
+['hase','jornada-docentes-1.webp','Docentes en la jornada del 03/09'],
+['hase','hase-preparacion.webp','Preparando la jornada con estudiantes'],
+['hase','mapa-hase.webp','Mapa HASE de la escuela'],
+['hase','flyer-miercoles-escucha.webp','Flyer «Miércoles de Escucha»'],
+['hase','flyer-espacio-escucha.webp','Flyer «Espacio de Escucha»'],
+['fin','financiera-aula-3.webp','Clase de Educación Financiera, octubre'],
+['fin','financiera-mochila.webp','Priorización de la mochila sísmica'],
+['fin','financiera-aula-1.webp','Trabajo en el aula, octubre'],
+['fin','financiera-aula-2.webp','Estudiantes en el taller, octubre'],
+['dig','digital-flexflix-aula.webp','Clase con FlexFlix en el aula'],
+['dig','flyer-ia-1-2.webp','Taller de IA de 1.º 2.ª en el Centro Tecnológico'],
+['dig','digital-proyector.webp','Clase con proyector en el aula'],
+['dig','flyer-ia-1-1.webp','Taller de IA de 1.º 1.ª en el Centro Tecnológico'],
+['dig','digital-abp-aula.webp','Clase del ABP San Juan Resiliente'],
+['dig','carga-flexflix.webp','Carga de estudiantes en FlexFlix'],
+['dig','flyer-centro-tecnologico.webp','Aviso a familias: visita al Centro Tecnológico'],
+['com','estudiantina-carteles.webp','Estudiantina: concurso de carteles'],
+['com','estudiantina-baile.webp','Estudiantina: baile'],
+['com','flyer-muestra.webp','Muestra de Escuelas Innovadoras, 12/11'],
+['com','jornada-aristizabal-1.webp','Jornada con Pablo Aristizábal'],
+['com','jornada-aristizabal-2.webp','Jornada con Pablo Aristizábal']];
+const NAMES={all:'Todas',hase:'Socioemocional',fin:'Ed. Financiera',dig:'Digital e IA',com:'Vida escolar'};
+const grid=document.getElementById('grid'),chips=document.querySelector('.chips');
+const lb=document.getElementById('lb'),lbImg=lb.querySelector('img'),lbTxt=lb.querySelector('p');
+let list=F,cur=0,lastFocus=null;
+const open=(arr,i)=>{list=arr;cur=i;lastFocus=document.activeElement;show();lb.classList.add('on');lb.querySelector('.x').focus()};
+const show=()=>{const f=list[cur];lbImg.src='img/'+f[1];lbImg.alt=f[2];lbTxt.textContent=f[2]};
+const close=()=>{lb.classList.remove('on');lastFocus&&lastFocus.focus()};
+const step=d=>{cur=(cur+d+list.length)%list.length;show()};
+lb.querySelector('.x').onclick=close;lb.querySelector('.p').onclick=()=>step(-1);lb.querySelector('.n').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+const btn=(f)=>`<button aria-label="Ampliar: ${f[2]}"><img loading="lazy" src="img/${f[1]}" alt="${f[2]}">`;
+document.querySelectorAll('.pics').forEach(p=>{
+  const arr=F.filter(f=>f[0]===p.dataset.set).slice(0,5);
+  p.innerHTML=arr.map(f=>btn(f).replace(' loading="lazy"','')+'</button>').join('');
+  p.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>open(arr,i));
+});
+const render=k=>{
+  const arr=k==='all'?F:F.filter(f=>f[0]===k);
+  grid.innerHTML=arr.map(f=>btn(f)+`<span>${f[2]}</span></button>`).join('');
+  grid.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>open(arr,i));
+  chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.k===k));
+};
+chips.innerHTML=Object.entries(NAMES).map(([k,v])=>`<button class="chip" data-k="${k}">${v}</button>`).join('');
+chips.querySelectorAll('.chip').forEach(c=>c.onclick=()=>render(c.dataset.k));
+render('all');
+const tabs=[...document.querySelectorAll('.tab')];
+const sel=t=>{tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on})};
+tabs.forEach((t,i)=>{t.onclick=()=>sel(t);t.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];sel(n);n.focus()}}});
+sel(tabs[0]);
+}</script>
+</body>
+</html>
